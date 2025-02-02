@@ -6,7 +6,7 @@ type Query {
 }
 type Mutation {
     addCountry(input: CountryInput!): Country!
-    updateCountryName(countryCode: String!, countryName: String!): Country!
+    updateCountryName(input: CountryInput!): Country!
 }
 
 type Country {

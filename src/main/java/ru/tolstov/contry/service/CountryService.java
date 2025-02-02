@@ -14,5 +14,5 @@ public interface CountryService {
 
     Country countryById(UUID id);
 
-    Country updateCountryName(String countryCode, String countryName);
+    Country updateCountryName(Country country);
 }

@@ -43,7 +43,7 @@ public class CountryController {
 
     @PatchMapping("/update/{countryCode}")
     @ResponseStatus(HttpStatus.OK)
-    public Country update(@PathVariable String countryCode, @RequestParam String countryName) {
-        return countryService.updateCountryName(countryCode, countryName);
+    public Country update(@PathVariable("countryCode") String countryCode, @RequestBody Country country) {
+        return countryService.updateCountryName(country);
     }
 }

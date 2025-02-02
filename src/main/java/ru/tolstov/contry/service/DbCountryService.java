@@ -26,6 +26,7 @@ public class DbCountryService implements CountryService {
     public @Nonnull Slice<Country> allCountry(Pageable pageable) {
         return countryRepository.findAll(pageable)
                 .map(ce -> new Country(
+                        ce.getId(),
                         ce.getName(),
                         ce.getCode()
                 ));
@@ -40,24 +41,25 @@ public class DbCountryService implements CountryService {
                 .setName(country.name())
                 .setCode(country.code());
         countryEntity = countryRepository.save(countryEntity);
-        return new Country(countryEntity.getName(), countryEntity.getCode());
+        return new Country(countryEntity.getId(), countryEntity.getName(), countryEntity.getCode());
     }
 
     @Override
     public Country countryById(UUID id) {
         return countryRepository.findById(id)
                 .map(co -> new Country(
+                        co.getId(),
                         co.getName(),
                         co.getCode()
                 )).orElseThrow();
     }
 
     @Override
-    public Country updateCountryName(String countryCode, String countryName) {
-        CountryEntity countryEntity = countryRepository.findByCode(countryCode)
-                .orElseThrow(() -> new CountryNotFoundException("Country not found with code: " + countryCode));
-        countryEntity.setName(countryName);
+    public Country updateCountryName(@Nonnull Country country) {
+        CountryEntity countryEntity = countryRepository.findByCode(country.code())
+                .orElseThrow(() -> new CountryNotFoundException("Country not found with code: " + country.code()));
+        countryEntity.setName(country.name());
         countryEntity = countryRepository.save(countryEntity);
-        return new Country(countryEntity.getName(), countryEntity.getCode());
+        return new Country(countryEntity.getId(), countryEntity.getName(), countryEntity.getCode());
     }
 }
