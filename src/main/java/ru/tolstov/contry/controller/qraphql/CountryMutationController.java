@@ -5,13 +5,9 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.tolstov.contry.domain.Country;
-import ru.tolstov.contry.domain.qraphql.CountryGql;
-import ru.tolstov.contry.domain.qraphql.CountryInputGql;
 import ru.tolstov.contry.service.CountryService;
-
-import java.util.List;
 
 @Controller
 public class CountryMutationController {
