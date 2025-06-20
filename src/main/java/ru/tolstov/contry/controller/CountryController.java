@@ -29,12 +29,15 @@ public class CountryController {
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
     public Country add(@RequestBody Country country) {
+        if (country == null) {
+        }
         return countryService.addCountry(country);
     }
 
-    @PatchMapping("/update/{countryCode}")
+
+    @PatchMapping("/update")
     @ResponseStatus(HttpStatus.OK)
-    public Country update(@PathVariable String countryCode, @RequestParam String countryName) {
-        return countryService.updateCountryName(countryCode, countryName);
+    public Country update(@RequestBody Country country) {
+        return countryService.updateCountryName(country);
     }
 }

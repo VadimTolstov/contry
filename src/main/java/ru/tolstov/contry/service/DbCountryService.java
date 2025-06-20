@@ -21,7 +21,8 @@ public class DbCountryService implements CountryService {
     }
 
     @Override
-    public @Nonnull List<Country> allCountry() {
+    @Nonnull
+    public List<Country> allCountry() {
         return countryRepository.findAll()
                 .stream()
                 .map(ce -> {
@@ -33,7 +34,8 @@ public class DbCountryService implements CountryService {
     }
 
     @Override
-    public Country addCountry(Country country) {
+    @Nonnull
+    public Country addCountry(@Nonnull Country country) {
         if (country.name() == null || country.code() == null) {
             throw new IllegalArgumentException("Name and code must not be null");
         }
@@ -45,10 +47,11 @@ public class DbCountryService implements CountryService {
     }
 
     @Override
-    public Country updateCountryName(String countryCode, String countryName) {
-        CountryEntity countryEntity = countryRepository.findByCode(countryCode)
-                .orElseThrow(() -> new CountryNotFoundException("Country not found with code: " + countryCode));
-        countryEntity.setName(countryName);
+    @Nonnull
+    public Country updateCountryName(@Nonnull Country country) {
+        CountryEntity countryEntity = countryRepository.findByCode(country.code())
+                .orElseThrow(() -> new CountryNotFoundException("Country not found with code: " + country.code()));
+        countryEntity.setName(country.name());
         countryEntity = countryRepository.save(countryEntity);
         return new Country(countryEntity.getName(), countryEntity.getCode());
     }

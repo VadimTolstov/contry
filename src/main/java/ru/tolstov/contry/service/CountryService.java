@@ -10,5 +10,5 @@ public interface CountryService {
 
     Country addCountry(Country country);
 
-    Country updateCountryName(String countryCode, String countryName);
+    Country updateCountryName(Country country);
 }
